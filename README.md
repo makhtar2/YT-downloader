@@ -1,3 +1,13 @@
+---
+title: YT Downloader
+emoji: 🎥
+colorFrom: blue
+colorTo: red
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # YT-Downloader
 
 Une application web puissante et gratuite pour télécharger des vidéos et playlists YouTube en différentes qualités (MP4, AVI, MKV) ou extraire l'audio.
