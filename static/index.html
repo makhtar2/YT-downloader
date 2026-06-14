@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YT Downloader</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#f8fafc">
+    <link rel="apple-touch-icon" href="/static/icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fa-brands fa-youtube"></i> YT Downloader</h1>
+            <p>Téléchargez vos vidéos et playlists en haute qualité, simplement.</p>
+        </header>
+
+        <main>
+            <div class="card">
+                <div class="input-section">
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-link input-icon"></i>
+                        <input type="text" id="urlInput" placeholder="Collez l'URL YouTube ici..." autocomplete="off">
+                    </div>
+                    <button id="fetchBtn" class="btn primary-btn">
+                        <i class="fa-solid fa-magnifying-glass"></i> Analyser
+                    </button>
+                </div>
+
+                <div class="advanced-options">
+                    <button id="advancedToggleBtn" class="advanced-toggle">
+                        <i class="fa-solid fa-gear"></i> Options avancées <i class="fa-solid fa-chevron-down" id="advancedChevron"></i>
+                    </button>
+                    <div id="advancedContent" class="advanced-content hidden">
+                        <label for="downloadPathInput">Dossier de destination (Optionnel)</label>
+                        <div class="input-wrapper" style="margin-bottom: 0;">
+                            <i class="fa-solid fa-folder-open input-icon"></i>
+                            <input type="text" id="downloadPathInput" placeholder="Ex: C:\Users\Nom\Downloads" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="loadingInfo" class="hidden">
+                <div class="spinner"></div>
+                <p>Récupération des informations...</p>
+            </div>
+
+            <div id="videoInfoCard" class="card hidden">
+                <div class="video-thumbnail">
+                    <img id="thumbImg" src="" alt="Thumbnail">
+                </div>
+                <div class="video-details">
+                    <h2 id="videoTitle">Titre de la vidéo</h2>
+                    <div class="video-meta">
+                        <span id="videoChannel"><i class="fa-solid fa-user"></i> Chaîne</span>
+                        <span id="videoDuration"><i class="fa-regular fa-clock"></i> 00:00</span>
+                    </div>
+                    <div class="format-selection" style="display: flex; gap: 1rem;">
+                        <div style="flex: 1;">
+                            <label for="formatSelect">Format & Qualité :</label>
+                            <select id="formatSelect" class="format-select">
+                                <option value="best">Meilleure Qualité (Auto)</option>
+                                <option value="2160">4K (2160p)</option>
+                                <option value="1080">Full HD (1080p)</option>
+                                <option value="720">HD (720p)</option>
+                                <option value="480">SD (480p)</option>
+                                <option value="audio">Audio Seulement (MP3)</option>
+                            </select>
+                        </div>
+                        <div style="flex: 1;">
+                            <label for="convertSelect">Convertir en :</label>
+                            <select id="convertSelect" class="format-select">
+                                <option value="none">Non (MP4 standard)</option>
+                                <option value="mp4">Forcer MP4</option>
+                                <option value="avi">Convertir en AVI</option>
+                                <option value="mkv">Convertir en MKV</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Playlist Section -->
+                    <div id="playlistSection" class="playlist-section hidden">
+                        <div class="playlist-header">
+                            <h3><i class="fa-solid fa-list"></i> Vidéos de la playlist</h3>
+                            <div class="playlist-actions">
+                                <button id="selectAllBtn">Tout cocher</button> /
+                                <button id="deselectAllBtn">Décocher</button>
+                            </div>
+                        </div>
+                        <div id="playlistItems" class="playlist-items">
+                            <!-- Items générés en JS -->
+                        </div>
+                    </div>
+
+                    <button id="downloadBtn" class="btn download-btn">
+                        <i class="fa-solid fa-download"></i> Télécharger
+                    </button>
+                </div>
+            </div>
+
+            <div id="progressSection" class="card hidden">
+                <h3><i class="fa-solid fa-cloud-arrow-down"></i> Téléchargement en cours</h3>
+                <div class="progress-info-text">
+                    <span id="progressStatus">Initialisation...</span>
+                    <span id="progressPercentage">0%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div id="progressBar" class="progress-bar"></div>
+                </div>
+                <div class="progress-stats">
+                    <div class="stat-box">
+                        <span class="stat-label">Vitesse</span>
+                        <span id="progressSpeed" class="stat-value">--</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Temps restant</span>
+                        <span id="progressEta" class="stat-value">--</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="successMessage" class="hidden message-box success">
+                <i class="fa-solid fa-circle-check"></i>
+                <p>Opération terminée avec succès !</p>
+            </div>
+            
+            <div id="errorMessage" class="hidden message-box error">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <p id="errorText">Une erreur est survenue.</p>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
